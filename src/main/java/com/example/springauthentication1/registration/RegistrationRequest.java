@@ -10,6 +10,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+
+//declaring the class with attributes to be requested via http. Class is then called in the RegistrationService
 public class RegistrationRequest {
 
     private final String firstname;

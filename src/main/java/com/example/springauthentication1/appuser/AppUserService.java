@@ -38,23 +38,24 @@ public class AppUserService implements UserDetailsService {
         }
 
 
-        String f_name = appUser.getFirstname();
-        String l_name = appUser.getLastName();
+//        String f_name = appUser.getFirstname();
+//        String l_name = appUser.getLastname();
+
 
         // new variable created to retrieve the encrypted password input by the user
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
 
         // setting the user's password to the retrieved password
         appUser.setPassword(encodedPassword);
-        appUser.setFirstName(f_name);
-        appUser.setLastName(l_name);
+//        appUser.setFirstName(f_name);
+//        appUser.setLastName(l_name);
 
         //persisting user to the database
         appUserRepository.save(appUser);
 
         String token = UUID.randomUUID().toString();
 
-        //Send confirmation token
+        //Sending the  confirmation token
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
@@ -62,9 +63,14 @@ public class AppUserService implements UserDetailsService {
                 appUser
         );
 
+        //saving the token in the db. Method declared in ConfirmationTokenService
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
         //TODO: SEND EMAIL
-        return token;
+        return token; //outputs the token
+    }
+
+    public int enableAppUser(String email) {
+        return appUserRepository.enableAppUser(email);
     }
 }

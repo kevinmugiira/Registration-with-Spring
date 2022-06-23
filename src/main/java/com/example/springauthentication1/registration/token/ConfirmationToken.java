@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity //declaring the class as a managed type ie: to be created as a table in the db
 public class ConfirmationToken {
 
     @SequenceGenerator(
@@ -45,7 +45,7 @@ public class ConfirmationToken {
     )
     private AppUser appUser;
 
-    //constructor to instantiate the above variables within the class
+    //constructor to instantiate this class together with the token variable attributes declared here
     public ConfirmationToken(String token,
                              LocalDateTime createdAt,
                              LocalDateTime expiresAt,
